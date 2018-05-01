@@ -6,10 +6,6 @@
 ----------------------------------------------
 
 
-	   
-	   
-
-
 --xml type 1 /Params/Account/TenantFirstName/
 ;WITH cte AS
 (
@@ -43,10 +39,6 @@ update cte set AdditionalInfo = NewAdditionalInfo where not cte.NewAdditionalInf
 
 
 
-
-
-
-
 --xml type 2  /Params/TenantFirstName/  (which only have 1 tenant)
 ;WITH cte AS
 (
@@ -74,9 +66,6 @@ update cte set AdditionalInfo = NewAdditionalInfo where not cte.NewAdditionalInf
     FROM #TempData AS ilv
 )
 update cte set AdditionalInfo = NewAdditionalInfo where not cte.NewAdditionalInfo is null
-
-
-
 
 
 
