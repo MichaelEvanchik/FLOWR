@@ -1,3 +1,14 @@
+--i first i tried this, but .modify() only works on one row at a time
+------------------no good--------------------
+--update t 
+--set YourXML.modify('replace value of (//*/LastName/text())[sql:variable("@node_index")][1] with concat("last",sql:column("t.id") cast as xs:string ?)')
+--CROSS APPLY t.YourXML.nodes('//*')   AS A(Acc) 
+----------------------------------------------
+
+
+	   
+	   
+
 
 --xml type 1 /Params/Account/TenantFirstName/
 ;WITH cte AS
@@ -6,9 +17,8 @@
           ,(
 	SELECT 
 	t.AdditionalInfo
-	.query(N'/Params/Account[(TenantFirstName/text())[1]=sql:column("FirstName") 
-	and (TenantLastName/text())[1]=sql:column("LastName")]')
-.query(N'<Account>
+	.query(N'/Params/Account[(TenantFirstName/text())[1]=sql:column("FirstName") and (TenantLastName/text())[1]=sql:column("LastName")]')
+        .query(N'<Account>
 	 {
 		for $nd in /Account/*
 		return 
@@ -44,8 +54,7 @@ update cte set AdditionalInfo = NewAdditionalInfo where not cte.NewAdditionalInf
           ,(
 	SELECT 
 	t.AdditionalInfo
-	.query(N'//Params[(TenantFirstName/text())[1]=sql:column("FirstName") 
-						 and (TenantLastName/text())[1]=sql:column("LastName")]')
+	.query(N'//Params[(TenantFirstName/text())[1]=sql:column("FirstName") and (TenantLastName/text())[1]=sql:column("LastName")]')
 	.query(N'
 	for $nd in /Params/*
 	return 
@@ -79,8 +88,7 @@ update cte set AdditionalInfo = NewAdditionalInfo where not cte.NewAdditionalInf
           ,(
 	SELECT 
 	t.AdditionalInfo
-	.query(N'/AdditionalInfo/Params/Account[(TenantFirstName/text())[1]=sql:column("FirstName") 
-						 and (TenantLastName/text())[1]=sql:column("LastName")]')
+	.query(N'/AdditionalInfo/Params/Account[(TenantFirstName/text())[1]=sql:column("FirstName") and (TenantLastName/text())[1]=sql:column("LastName")]')
 	.query(N'<Params><Account>
 			 {
 				for $nd in /Account/*
