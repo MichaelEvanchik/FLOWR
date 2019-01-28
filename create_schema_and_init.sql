@@ -1,4 +1,7 @@
--- might be a way easier solution
+-- might be a way easier solution.
+
+--go up one directory if want test data
+
 if (OBJECT_ID('tempdb..#TempData') is not null) drop table #TempData
 create table #TempData (ID INT,RefID uniqueidentifier, AdditionalInfo XML)
 INSERT INTO #TempData (id,RefID,AdditionalInfo)
